@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, UpdateView
@@ -89,3 +90,11 @@ class DeleteSelected(ListView):
     def post(self, request, *args, **kwargs):
         queryset = Note.objects.filter(delete_status=True).delete()
         return redirect(self.success_url)
+
+
+def index_json_view(request):
+    todos = Note.objects.all().values()
+    return JsonResponse({'todos': list(todos)}, safe=False)
+
+def json_frontend_view(request):
+    return render(request, 'json_simple.html')

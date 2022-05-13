@@ -18,7 +18,7 @@ from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
-from notes.views import IndexPage, DeleteNote, change_status, UpdateNote, DeleteComplited, change_delete_status, DeleteSelected
+from notes.views import IndexPage, DeleteNote, change_status, UpdateNote, DeleteComplited, change_delete_status, DeleteSelected, index_json_view, json_frontend_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,7 @@ urlpatterns = [
     path('delete_complited/', DeleteComplited.as_view(), name='delete_complited'),
     path('update/<pk>', UpdateNote.as_view(), name='update_note'),
     path('change_delete_status/<pk>', change_delete_status),
-    path('delete_selected/', DeleteSelected.as_view())
+    path('delete_selected/', DeleteSelected.as_view()),
+    path('json_simple', index_json_view, name='index-json'),
+    path('json_frontend', json_frontend_view, name='json-frontend')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
