@@ -1,3 +1,4 @@
+from dataclasses import field
 from django import forms
 
 from .models import Note
@@ -13,11 +14,13 @@ class CreateNoteForm(forms.ModelForm):
             'header',
             'text',
             'status',
+            'image',
         ]
         labels = {
             'header': 'Заголовок',
             'text': 'Описание',
             'status': 'Статус',
+            'image': 'Image',
         }
 
     def __init__(self, *args, **kwargs):
@@ -29,6 +32,7 @@ class CreateNoteForm(forms.ModelForm):
             Field('header', css_class='w-50', label='Заголовок'),
             Field('text', css_class='w-50'),
             Field('status'),
+            Field('image', css_class='w-25'),
             ButtonHolder(Submit('добавить', 'Добавить', css_class='btn btn-success'))
         )
 

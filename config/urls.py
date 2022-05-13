@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 from notes.views import IndexPage, DeleteNote, change_status, UpdateNote, DeleteComplited, change_delete_status, DeleteSelected
 
@@ -27,4 +29,4 @@ urlpatterns = [
     path('update/<pk>', UpdateNote.as_view(), name='update_note'),
     path('change_delete_status/<pk>', change_delete_status),
     path('delete_selected/', DeleteSelected.as_view())
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -14,7 +14,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 # https://damp-harbor-91894.herokuapp.com/ | https://git.heroku.com/damp-harbor-91894.git
 
 
-
+import dj_database_url
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-ur5c7+*r_)!zfxsa&!1v=!bx!cigs%+yf5ts5_u4a97+)uyong
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['notes-app-kidkod.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'notes-app-kidkod.herokuapp.com']
 
 
 # Application definition
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_cleanup',
     'notes',
     'crispy_forms',
     'crispy_bootstrap5',
@@ -130,9 +131,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+STATIC_URL = '/staticbase/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_DIRS = [
+    BASE_DIR / 'staticbase',
+]
+
+
+MEDIA_ROOT = BASE_DIR / 'staticbase' / 'media'
+MEDIA_URL = '/media/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -140,6 +148,5 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Heroku: Update database configuration from $DATABASE_URL.
-import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
